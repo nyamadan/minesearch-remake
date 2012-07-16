@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  script(src="http://#{config.websocket.server}:#{config.websocket.port}/socket.io/socket.io.js")
+  script(src="http://#{config.websocket.host}:#{config.websocket.port}/socket.io/socket.io.js")
 
   script(src='/javascripts/Three.js')
   script(src='/javascripts/physi.js')

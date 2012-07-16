@@ -4,14 +4,28 @@
  */
 
 var express = require('express')
+  , http = require('http')
   , routes = require('./routes')
   , game = require('./game')
-  , http = require('http')
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  var config = {
+    application : {
+      name : 'Minesearch remake'
+    }
+  , server : {
+      port : process.env.PORT || 3000
+    , host : '192.168.56.10'
+  , }
+  , websocket : {
+      port : 3030
+    , host : '192.168.56.10'
+    }
+  };
+
+  app.set('port', config.server.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
 
@@ -22,16 +36,7 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 
-  var config = {
-    application : {
-      name : 'Minesearch remake'
-    }
-  , websocket : {
-      port : 3030
-    , server : '192.168.56.10'
-    }
-  };
-
+  //User configuration
   game = game(config);
   routes = routes(config);
 });
@@ -41,10 +46,12 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/serverinfo', routes.serverinfo);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+//WebSocketを準備する
 game.createWebSocketServer();
 

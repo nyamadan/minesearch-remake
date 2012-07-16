@@ -9,8 +9,9 @@ require(['gamecontroller'], function(controller){
     var domContainer = document.getElementById('gamecontainer');
 
     //コントローラーを作成して起動
-    var gameController = new controller.GameController(domContainer, 640, 480);
+    var gameController = new controller.GameController(domContainer, 640, 480, '192.168.56.10', 3030);
     gameController.start();
+
   }, false);
 });
 

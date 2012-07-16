@@ -14,8 +14,12 @@ function(boxmodel, controller, view)
   };
 
   ns.GameController.prototype = {
-    initialize: function(domContainer, width, height) {
+    initialize: function(domContainer, width, height, websocketHost, websocketPort) {
       controller.Controller.prototype.initialize.apply(this, arguments);
+
+      var socket = io.connect('http://' + websocketHost + ':' + websocketPort);
+      socket.on('connection', function (data) {
+      });
 
       //メインビューを作成する
       this.viewGame = new view.GameView(domContainer, width, height);
