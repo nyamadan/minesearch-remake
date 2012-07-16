@@ -3,15 +3,12 @@ define(function(){
 
   var ns = {}; // namespace
 
-  ns.View = function() {
+  ns.Model = function() {
     this.initialize.apply(this, arguments);
   };
 
-  ns.View.prototype = {
+  ns.Model.prototype = {
     initialize: function() {
-    },
-
-    render : function() {
     }
   };
 
