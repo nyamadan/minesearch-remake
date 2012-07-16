@@ -8,7 +8,12 @@ define(function(){
   };
 
   ns.Controller.prototype = {
-    initialize: function() {
+    initialize: function(view) {
+      this.isGaming = false;
+    },
+
+    start:function(view) {
+      this.isGaming = true;
     }
   };
 
