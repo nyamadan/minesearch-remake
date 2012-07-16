@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  script(src="http://#{config.websocket.server}:#{config.websocket.port}/socket.io/socket.io.js")
+
+  script(src='/javascripts/Three.js')
+  script(src='/javascripts/physi.js')
+
+  script(data-main='/javascripts/application.js', src='/javascripts/require.js')
+
+  h1= config.application.name
+  div#gamecontainer
+
