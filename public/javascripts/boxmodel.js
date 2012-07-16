@@ -12,19 +12,11 @@ define(['model'], function(model){
       model.Model.prototype.initialize.apply(this, arguments);
 
       // Box
-      this.box = new Physijs.BoxMesh(
+      this.mesh = new Physijs.BoxMesh(
         new THREE.CubeGeometry( 5, 5, 5 ),
         new THREE.MeshBasicMaterial({ color: 0x888888 })
       );
     },
-
-    addToGameView: function(gameView) {
-      gameView.scene.add(this.box);
-    },
-
-    removeFromGameView: function(gameView) {
-      gameView.scene.remove(this.box);
-    }
   };
 
   return ns;

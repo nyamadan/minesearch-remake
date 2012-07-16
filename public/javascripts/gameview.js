@@ -16,29 +16,16 @@ define(['view'], function(view){
       height = height || 640;
 
       this.renderer = null;
-      this.camera = null;
-      this.scene = null;
 
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize( width, height );
       this.renderer.setClearColorHex(0xC0C0C0, 1.0);
       domGame.appendChild( this.renderer.domElement );
 
-      this.scene = new Physijs.Scene;
-
-      this.camera = new THREE.PerspectiveCamera(
-        60,
-        width / height,
-        1, 1000
-      );
-      this.camera.position.set( 60, 50, 60 );
-      this.camera.lookAt( this.scene.position );
-      this.scene.add( this.camera );
     },
 
-    render : function() {
-      this.scene.simulate(); // run physics
-      this.renderer.render( this.scene, this.camera); // render the scene
+    render : function(scene, camera) {
+      this.renderer.render(scene, camera); // render the scene
     }
   };
 

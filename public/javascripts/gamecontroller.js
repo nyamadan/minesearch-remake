@@ -21,18 +21,40 @@ function(boxmodel, controller, view)
       socket.on('connection', function (data) {
       });
 
+      //描画用シーンを作成する
+      this.scene = new Physijs.Scene;
+      this.camera = new THREE.PerspectiveCamera(
+        60,
+        width / height,
+        1, 1000
+      );
+      this.camera.position.set( 60, 50, 60 );
+      this.camera.lookAt( this.scene.position );
+      this.scene.add( this.camera );
+
       //メインビューを作成する
-      this.viewGame = new view.GameView(domContainer, width, height);
+      this.gameView = new view.GameView(domContainer, width, height);
 
       //箱をビューに登録する
-      var modelBox = new boxmodel.BoxModel();
-      modelBox.addToGameView(this.viewGame);
+      var boxModel = new boxmodel.BoxModel();
+
+      //
+      this.addBoxModel(boxModel);
+    },
+
+    addBoxModel: function(boxModel) {
+      this.scene.add(boxModel.mesh);
+    },
+
+    removeBoxModel: function(boxModel) {
+      this.scene.remove(boxModel.mesh);
     },
 
     execute: function(deltaT) {
       controller.Controller.prototype.execute.apply(this, arguments);
 
-      this.viewGame.render(deltaT);
+      this.scene.simulate(undefined, 2); // run physics
+      this.gameView.render(this.scene, this.camera);
     }
   };
 
