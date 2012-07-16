@@ -1,4 +1,4 @@
-require(['gamemanager', 'gamecontroller'], function(manager, controller){
+require(['gamemanager', 'gameview', 'gamecontroller'], function(manager, view, controller){
   window.addEventListener('load', function(){
     'use strict';
 
@@ -12,7 +12,8 @@ require(['gamemanager', 'gamecontroller'], function(manager, controller){
     var gameManager = new manager.GameManager();
 
     //コントローラーを作成
-    var gameController = new controller.GameController(domContainer, 640, 480, '192.168.56.10', 3030);
+    var gameView =  new view.GameView(domContainer, 640, 480);
+    var gameController = new controller.GameController(gameView, '192.168.56.10', 3030);
 
     //コントローラーをプッシュ
     gameManager.push(gameController);

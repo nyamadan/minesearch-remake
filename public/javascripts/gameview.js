@@ -15,13 +15,14 @@ define(['view'], function(view){
       width = width || 640;
       height = height || 640;
 
-      this.renderer = null;
-
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize( width, height );
       this.renderer.setClearColorHex(0xC0C0C0, 1.0);
       domGame.appendChild( this.renderer.domElement );
+    },
 
+    getAspect : function() {
+      return this.renderer.domElement.width / this.renderer.domElement.height;
     },
 
     render : function(scene, camera) {

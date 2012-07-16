@@ -1,9 +1,8 @@
 define([
        'boxmodel',
-       'controller',
-       'gameview'
+       'controller'
 ],
-function(boxmodel, controller, view)
+function(boxmodel, controller)
 {
   "use strict";
 
@@ -14,9 +13,13 @@ function(boxmodel, controller, view)
   };
 
   ns.GameController.prototype = {
-    initialize: function(domContainer, width, height, websocketHost, websocketPort) {
+    initialize: function(gameView, websocketHost, websocketPort) {
       controller.Controller.prototype.initialize.apply(this, arguments);
 
+      //メインビューを作成する
+      this.gameView = gameView;
+
+      //通信用ソケット
       var socket = io.connect('http://' + websocketHost + ':' + websocketPort);
       socket.on('connection', function (data) {
       });
@@ -25,20 +28,15 @@ function(boxmodel, controller, view)
       this.scene = new Physijs.Scene;
       this.camera = new THREE.PerspectiveCamera(
         60,
-        width / height,
+        this.gameView.getAspect(),
         1, 1000
       );
       this.camera.position.set( 60, 50, 60 );
       this.camera.lookAt( this.scene.position );
       this.scene.add( this.camera );
 
-      //メインビューを作成する
-      this.gameView = new view.GameView(domContainer, width, height);
-
       //箱をビューに登録する
       var boxModel = new boxmodel.BoxModel();
-
-      //
       this.addBoxModel(boxModel);
     },
 
