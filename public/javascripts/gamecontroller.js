@@ -53,6 +53,11 @@ function(boxmodel, controller)
 
       this.scene.simulate(undefined, 2); // run physics
       this.gameView.render(this.scene, this.camera);
+
+      return true;
+    },
+
+    dispose: function() {
     }
   };
 

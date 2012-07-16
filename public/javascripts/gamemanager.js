@@ -8,32 +8,31 @@ define(function() {
   };
 
   ns.GameManager.prototype = {
-    initialize: function() {
+    initialize: function(controller) {
       this.isGaming = false;
       this.lastFrameTime = null;
       this.controllerStack = [];
-    },
 
-    push: function(controller) {
-      this.controllerStack.push(controller)
-    },
+      this.push(controller);
 
-    pop: function(controller) {
-      this.controllerStack.pop(controller)
-    },
+      this.isGaming = true;
+      this.lastFrameTime = (new Date()).getTime();
 
-    start: function() {
       var that = this;
-
-      that.isGaming = true;
-      that.lastFrameTime = (new Date()).getTime();
-
       var execute = function() {
         if (that.isGaming && that.controllerStack.length > 0) {
           var top = that.controllerStack.length - 1;
           var now = (new Date()).getTime();
+          var deltaT = now - that.lastFrameTime;
 
-          that.controllerStack[top].execute(now - that.lastFrameTime);
+          for(var i = top; i >= 0; --i){
+            var controller = that.controllerStack[i];
+            if (controller && typeof controller.execute === 'function') {
+              if(controller.execute(deltaT) === false) {
+                break;
+              }
+            }
+          }
 
           that.lastFrameTime = now;
 
@@ -42,6 +41,17 @@ define(function() {
       };
 
       requestAnimationFrame(execute);
+    },
+
+    push: function(controller) {
+      this.controllerStack.push(controller)
+    },
+
+    pop: function() {
+      var controller = this.controllerStack.pop()
+      if (controller && typeof controller.dispose === 'function') {
+        controller.dispose();
+      }
     }
   };
 

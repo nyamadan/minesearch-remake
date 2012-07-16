@@ -14,6 +14,10 @@ define(function(){
     },
 
     execute: function(deltaT) {
+      return true;
+    },
+
+    dispose: function() {
     }
   };
 
