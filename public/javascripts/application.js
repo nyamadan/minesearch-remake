@@ -11,11 +11,13 @@ require(['gamemanager', 'gamecontroller'], function(manager, controller){
     //ゲームマネージャ起動
     var gameManager = new manager.GameManager();
 
-    //コントローラーを作成して起動
+    //コントローラーを作成
     var gameController = new controller.GameController(domContainer, 640, 480, '192.168.56.10', 3030);
 
+    //コントローラーをプッシュ
     gameManager.push(gameController);
 
+    //ゲーム開始
     gameManager.start();
 
   }, false);

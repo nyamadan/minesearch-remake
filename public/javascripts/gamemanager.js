@@ -10,6 +10,7 @@ define(function() {
   ns.GameManager.prototype = {
     initialize: function() {
       this.isGaming = false;
+      this.lastFrameTime = null;
       this.controllerStack = [];
     },
 
@@ -25,11 +26,17 @@ define(function() {
       var that = this;
 
       that.isGaming = true;
+      that.lastFrameTime = (new Date()).getTime();
 
       var execute = function() {
         if (that.isGaming && that.controllerStack.length > 0) {
           var top = that.controllerStack.length - 1;
-          that.controllerStack[top].execute();
+          var now = (new Date()).getTime();
+
+          that.controllerStack[top].execute(now - that.lastFrameTime);
+
+          that.lastFrameTime = now;
+
           requestAnimationFrame(execute);
         }
       };

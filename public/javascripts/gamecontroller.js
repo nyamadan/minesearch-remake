@@ -32,7 +32,7 @@ function(boxmodel, controller, view)
     execute: function(deltaT) {
       controller.Controller.prototype.execute.apply(this, arguments);
 
-      this.viewGame.render();
+      this.viewGame.render(deltaT);
     }
   };
 
