@@ -5,6 +5,7 @@ define(function(){
 
   ns.View = function() {
     this.initialize.apply(this, arguments);
+    this.children = [];
   };
 
   ns.View.prototype = {

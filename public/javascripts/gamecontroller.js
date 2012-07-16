@@ -29,22 +29,10 @@ function(boxmodel, controller, view)
       modelBox.addToGameView(this.viewGame);
     },
 
-    //コントローラーを開始する
-    start: function() {
-      controller.Controller.prototype.start.apply(this, arguments);
-      (function(that){
-        var execute = function() {
+    execute: function(deltaT) {
+      controller.Controller.prototype.execute.apply(this, arguments);
 
-          //メインビューをレンダリングする
-          that.viewGame.render();
-
-          if (that.isGaming) {
-            requestAnimationFrame(execute);
-          }
-        };
-
-        requestAnimationFrame(execute);
-      })(this);
+      this.viewGame.render();
     }
   };
 

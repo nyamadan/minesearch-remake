@@ -4,6 +4,7 @@ define(['view'], function(view){
 
   ns.GameView = function() {
     this.initialize.apply(this, arguments);
+    this.children = [];
   };
 
   ns.GameView.prototype = {

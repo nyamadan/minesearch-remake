@@ -5,15 +5,15 @@ define(function(){
 
   ns.Controller = function() {
     this.initialize.apply(this, arguments);
+
+    this.children = [];
   };
 
   ns.Controller.prototype = {
-    initialize: function(view) {
-      this.isGaming = false;
+    initialize: function() {
     },
 
-    start:function(view) {
-      this.isGaming = true;
+    execute: function(deltaT) {
     }
   };
 
